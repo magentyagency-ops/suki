@@ -12,7 +12,7 @@ export default function Contact() {
         transition={{ duration: 0.7 }}
       >
         <h2 className="ct__heading">
-          Demander Un <span className="text-gradient">Audit Visuel</span>
+          Prendre <span className="text-gradient">Rendez-vous</span>
         </h2>
         <p className="ct__desc">
           Prêt à passer au niveau supérieur ? Contactez‑nous directement.
