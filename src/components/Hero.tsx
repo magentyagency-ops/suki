@@ -64,6 +64,7 @@ export default function Hero() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
+            style={{ position: 'relative', zIndex: 2 }}
           >
             <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
               <span style={{ height: '2px', width: '40px', background: 'var(--color-primary)' }}></span>
@@ -113,7 +114,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="hero-image-container"
-            style={{ position: 'relative' }}
+            style={{ position: 'relative', zIndex: 1 }}
           >
             {/* Mockup d'un téléphone montrant un reel */}
             <div className="floating glass" style={{ 
@@ -151,11 +152,11 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.4, duration: 0.8, type: "spring" }}
-              className="glass"
+              className="glass decoration-badge"
               style={{
                 position: 'absolute',
                 bottom: '15%',
-                left: '-15%',
+                left: '-10%',
                 padding: '1.2rem',
                 borderRadius: '20px',
                 display: 'flex',
@@ -211,6 +212,14 @@ export default function Hero() {
             width: 100%;
             justify-content: center;
             margin-top: -1rem;
+          }
+          .decoration-badge {
+            display: none !important;
+          }
+        }
+        @media (max-width: 1100px) and (min-width: 993px) {
+          .decoration-badge {
+            display: none !important;
           }
         }
         .play-btn:hover {
