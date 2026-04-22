@@ -16,6 +16,7 @@ export default function Navbar() {
     { label: 'Expertise', href: '#services' },
     { label: 'Réalisations', href: '#showcase' },
     { label: "L'Agence", href: '#about' },
+    { label: 'Tarifs', href: '#pricing' },
   ];
 
   return (
