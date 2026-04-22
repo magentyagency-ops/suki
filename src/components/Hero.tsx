@@ -55,8 +55,8 @@ export default function Hero() {
       <div className="container" style={{ position: 'relative', zIndex: 10, width: '100%' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 0.8fr)',
-          gap: '2rem',
+          gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 0.7fr)',
+          gap: '6rem',
           alignItems: 'center'
         }} className="hero-grid">
           
@@ -114,14 +114,14 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="hero-image-container"
-            style={{ position: 'relative', zIndex: 1 }}
+            style={{ position: 'relative', zIndex: 1, justifySelf: 'end' }}
           >
             {/* Mockup d'un téléphone montrant un reel */}
             <div className="floating-phone glass" style={{ 
               width: '100%', 
               maxWidth: '350px', 
               aspectRatio: '9/16', 
-              margin: '0 auto',
+              margin: '0 0 0 auto',
               borderRadius: '35px', 
               overflow: 'hidden',
               position: 'relative',
@@ -156,7 +156,7 @@ export default function Hero() {
               style={{
                 position: 'absolute',
                 bottom: '10%',
-                left: '5%',
+                right: '5%',
                 padding: '1rem',
                 borderRadius: '20px',
                 display: 'flex',
