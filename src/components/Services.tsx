@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Smartphone, TrendingUp, Scissors, Camera } from 'lucide-react';
 
