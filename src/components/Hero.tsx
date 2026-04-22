@@ -21,6 +21,7 @@ export default function Hero() {
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'center', /* Centré verticalement et horizontalement */
       paddingTop: '80px',
       overflow: 'hidden'
     }}>
@@ -28,7 +29,7 @@ export default function Hero() {
       <div style={{
         position: 'absolute',
         top: 0, left: 0, right: 0, bottom: 0,
-        background: 'radial-gradient(circle at 70% 30%, rgba(200, 16, 46, 0.05) 0%, transparent 60%)',
+        background: 'radial-gradient(circle at 50% 50%, rgba(200, 16, 46, 0.05) 0%, transparent 70%)',
         zIndex: -2,
       }}></div>
 
@@ -52,53 +53,54 @@ export default function Hero() {
         }}
       />
 
-      <div className="container" style={{ position: 'relative', zIndex: 10, width: '100%', textAlign: 'center' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 10, width: '100%' }}>
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          style={{ maxWidth: '900px', margin: '0 auto' }}
+          style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}
         >
-          <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginBottom: '2rem' }}>
+          <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginBottom: '1.5rem', width: '100%' }}>
             <span style={{ height: '2px', width: '40px', background: 'var(--color-primary)' }}></span>
-            <span style={{ textTransform: 'uppercase', letterSpacing: '6px', fontSize: '1rem', color: 'var(--color-primary)', fontWeight: 'bold' }}>Suki Agency</span>
+            <span style={{ textTransform: 'uppercase', letterSpacing: '4px', fontSize: '1rem', color: 'var(--color-primary)', fontWeight: 'bold' }}>Suki Agency</span>
             <span style={{ height: '2px', width: '40px', background: 'var(--color-primary)' }}></span>
           </motion.div>
 
           <motion.h1 variants={itemVariants} style={{ 
-            fontSize: 'clamp(4rem, 10vw, 8rem)', 
+            fontSize: 'clamp(2.5rem, 11vw, 7.5rem)', /* Le 'vw' empêche les mots longs de casser le layout */
             marginBottom: '1.5rem',
-            lineHeight: 1,
-            fontWeight: 700
+            lineHeight: 1.05,
+            fontWeight: 700,
+            wordBreak: 'break-word', /* Sécurité anti-débordement sur très petits mobiles */
+            width: '100%'
           }}>
             L'art d'être <br />
-            <span className="text-gradient" style={{ fontStyle: 'italic', paddingRight: '10px' }}>Incontournable</span>
+            <span className="text-gradient" style={{ fontStyle: 'italic' }}>Incontournable</span>
           </motion.h1>
 
           <motion.p variants={itemVariants} style={{ 
-            fontSize: '1.4rem', 
+            fontSize: '1.25rem', 
             color: 'var(--color-text-muted)', 
             marginBottom: '3.5rem',
             maxWidth: '750px',
-            margin: '0 auto 3.5rem',
-            lineHeight: 1.8,
+            lineHeight: 1.7,
             fontWeight: 400
           }}>
             Nous propulsons les restaurants asiatiques avec un contenu vidéo vertical organique à fort impact. Démarquez-vous avec élégance et viralité.
           </motion.p>
 
-          <motion.div variants={itemVariants} style={{ display: 'flex', gap: '2rem', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="#contact" className="btn btn-primary" style={{ padding: '1.4rem 3.5rem', fontSize: '1.2rem', borderRadius: '50px' }}>
+          <motion.div variants={itemVariants} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
+            <a href="#contact" className="btn btn-primary" style={{ padding: '1.2rem 3rem', fontSize: '1.15rem', borderRadius: '50px' }}>
               Créer l'impact
             </a>
-            <a href="#showcase" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', fontWeight: 600, transition: 'color 0.3s', fontSize: '1.1rem' }} className="play-btn">
+            <a href="#showcase" style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontWeight: 600, transition: 'color 0.3s', fontSize: '1.1rem' }} className="play-btn">
               <span style={{ 
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                width: '60px', height: '60px', borderRadius: '50%',
+                width: '56px', height: '56px', borderRadius: '50%',
                 border: '1px solid var(--color-text)',
                 background: 'transparent'
               }}>
-                <Play size={24} fill="currentColor" />
+                <Play size={22} fill="currentColor" />
               </span>
               Nos Projets
             </a>
@@ -109,14 +111,15 @@ export default function Hero() {
       <style>{`
         @media (max-width: 768px) {
           .hero-section {
-            padding-top: 120px !important;
+            padding-top: 100px !important;
           }
           .hero-section h1 {
-            font-size: 3.5rem !important;
+            font-size: clamp(2.5rem, 12vw, 4rem) !important;
           }
           .hero-section p {
             font-size: 1.1rem !important;
             margin-bottom: 2.5rem !important;
+            padding: 0 1rem;
           }
           .play-btn {
             width: 100%;
