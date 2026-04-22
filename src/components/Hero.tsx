@@ -56,7 +56,7 @@ export default function Hero() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 0.8fr)',
-          gap: '4rem',
+          gap: '2rem',
           alignItems: 'center'
         }} className="hero-grid">
           
@@ -71,8 +71,8 @@ export default function Hero() {
               <span style={{ textTransform: 'uppercase', letterSpacing: '4px', fontSize: '0.85rem', color: 'var(--color-primary)', fontWeight: 'bold' }}>Suki Agency</span>
             </motion.div>
 
-            <motion.h1 variants={itemVariants} style={{ 
-              fontSize: 'clamp(3.5rem, 7vw, 6.5rem)', 
+            <motion.h1 className="hero-title" variants={itemVariants} style={{ 
+              fontSize: 'clamp(3rem, 6.5vw, 6rem)', 
               marginBottom: '1rem',
               lineHeight: 1.05
             }}>
@@ -80,18 +80,18 @@ export default function Hero() {
               <span className="text-gradient" style={{ fontStyle: 'italic', paddingRight: '10px' }}>Incontournable</span>
             </motion.h1>
 
-            <motion.p variants={itemVariants} style={{ 
+            <motion.p className="hero-description" variants={itemVariants} style={{ 
               fontSize: '1.15rem', 
               color: 'var(--color-text-muted)', 
               marginBottom: '2.5rem',
-              maxWidth: '85%',
+              maxWidth: '90%',
               lineHeight: 1.7,
               fontWeight: 400
             }}>
               Nous propulsons les restaurants asiatiques avec un contenu vidéo vertical organique à fort impact. Démarquez-vous avec élégance.
             </motion.p>
 
-            <motion.div variants={itemVariants} style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <motion.div variants={itemVariants} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <a href="#contact" className="btn btn-primary" style={{ padding: '1.2rem 2.5rem', fontSize: '1.1rem' }}>
                 Créer l'impact
               </a>
@@ -104,7 +104,7 @@ export default function Hero() {
                 }}>
                   <Play size={22} fill="currentColor" />
                 </span>
-                Voir nos réalisations
+                Projets
               </a>
             </motion.div>
           </motion.div>
@@ -117,7 +117,7 @@ export default function Hero() {
             style={{ position: 'relative', zIndex: 1 }}
           >
             {/* Mockup d'un téléphone montrant un reel */}
-            <div className="floating glass" style={{ 
+            <div className="floating-phone glass" style={{ 
               width: '100%', 
               maxWidth: '350px', 
               aspectRatio: '9/16', 
@@ -147,7 +147,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Decoration Element */}
+            {/* Decoration Element - Repositioned inside the column */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -155,21 +155,24 @@ export default function Hero() {
               className="glass decoration-badge"
               style={{
                 position: 'absolute',
-                bottom: '15%',
-                left: '-10%',
-                padding: '1.2rem',
+                bottom: '10%',
+                left: '5%',
+                padding: '1rem',
                 borderRadius: '20px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '15px'
+                gap: '12px',
+                background: 'white',
+                boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
+                zIndex: 10
               }}
             >
-              <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'var(--color-primary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontWeight: 'bold' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'var(--color-primary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>
                 ⛩️
               </div>
               <div style={{ paddingRight: '10px' }}>
-                <p style={{ margin: 0, fontWeight: 700, color: 'var(--color-text)', fontSize: '1.1rem' }}>Haut de gamme</p>
-                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-primary)', fontWeight: 500 }}>Sushis & Wok</p>
+                <p style={{ margin: 0, fontWeight: 700, color: 'var(--color-text)', fontSize: '0.95rem' }}>Haut de gamme</p>
+                <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-primary)', fontWeight: 500 }}>Sushis & Wok</p>
               </div>
             </motion.div>
 
@@ -178,10 +181,11 @@ export default function Hero() {
       </div>
 
       <style>{`
-        @media (max-width: 992px) {
+        @media (max-width: 1100px) {
           .hero-grid {
             grid-template-columns: 1fr !important;
             text-align: center;
+            gap: 3rem !important;
           }
           .hero-grid > div:first-child p {
             margin: 0 auto 2.5rem;
@@ -191,22 +195,33 @@ export default function Hero() {
             justify-content: center;
           }
           .hero-image-container {
-            margin-top: 3rem;
+            margin-top: 1rem;
+          }
+          .hero-title {
+            font-size: 3.5rem !important;
+          }
+          .floating-phone {
+            max-width: 300px !important;
+          }
+          .decoration-badge {
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            bottom: -20px !important;
           }
         }
         @media (max-width: 576px) {
           .hero-section {
             padding-top: 100px !important;
           }
-          .hero-grid h1 {
+          .hero-title {
             font-size: 2.8rem !important;
           }
-          .hero-grid p {
+          .hero-description {
             font-size: 1rem !important;
             max-width: 100% !important;
           }
-          .hero-image-container .floating.glass {
-            max-width: 280px !important;
+          .floating-phone {
+            max-width: 260px !important;
           }
           .play-btn {
             width: 100%;
@@ -214,12 +229,7 @@ export default function Hero() {
             margin-top: -1rem;
           }
           .decoration-badge {
-            display: none !important;
-          }
-        }
-        @media (max-width: 1100px) and (min-width: 993px) {
-          .decoration-badge {
-            display: none !important;
+             display: none !important;
           }
         }
         .play-btn:hover {
