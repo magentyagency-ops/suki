@@ -34,118 +34,113 @@ const works = [
 export default function Showcase() {
   return (
     <section id="showcase" className="section-padding container">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem', flexWrap: 'wrap', gap: '2rem' }}>
+      <div className="sc__header">
         <div>
-          <span style={{ color: 'var(--color-primary)', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.9rem' }}>
-            Portfolio
-          </span>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', marginTop: '0.5rem' }}>
+          <span className="sc__tag">Portfolio</span>
+          <h2 className="sc__heading">
             On Mange Avec <span className="text-gradient">Les Yeux</span>.
           </h2>
         </div>
-        <a href="#" className="btn btn-outline" style={{ display: 'none' }}>Voir tout</a>
       </div>
 
-      <div className="bento-grid">
-        {works.map((work, index) => (
+      <div className="sc__grid">
+        {works.map((work, i) => (
           <motion.div
             key={work.id}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: index * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className={`bento-item ${work.size}`}
-            style={{
-              position: 'relative',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              boxShadow: '0 15px 35px rgba(0,0,0,0.06)'
-            }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ delay: i * 0.12, duration: 0.7 }}
+            className={`sc__item sc__item--${work.size}`}
           >
-            <div className="overlay" style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0, bottom: 0,
-              background: 'linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.4) 40%, transparent 100%)',
-              zIndex: 1,
-              transition: 'opacity 0.4s ease'
-            }} />
-            
-            <img 
-              src={work.image} 
-              alt={work.title}
-              style={{
-                width: '100%', height: '100%',
-                objectFit: 'cover',
-                transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-                display: 'block'
-              }}
-              className="bento-img"
-            />
-
-            <div style={{
-              position: 'absolute',
-              bottom: 0, left: 0,
-              padding: '2.5rem 2rem',
-              zIndex: 2,
-              width: '100%'
-            }}>
-              <span style={{ fontSize: '0.85rem', color: 'var(--color-primary)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                {work.category}
-              </span>
-              <h3 style={{ fontSize: '1.6rem', marginTop: '0.5rem', color: 'var(--color-text)' }}>{work.title}</h3>
+            <img src={work.image} alt={work.title} className="sc__img" />
+            <div className="sc__overlay" />
+            <div className="sc__caption">
+              <span className="sc__cat">{work.category}</span>
+              <h3 className="sc__title">{work.title}</h3>
             </div>
           </motion.div>
         ))}
       </div>
 
       <style>{`
-        .bento-grid {
+        .sc__header {
+          margin-bottom: 4rem;
+        }
+        .sc__tag {
+          color: var(--color-primary);
+          font-weight: 700;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          font-size: 0.85rem;
+        }
+        .sc__heading {
+          font-size: clamp(2rem, 4vw, 3.2rem);
+          margin-top: 0.5rem;
+        }
+
+        /* Grid */
+        .sc__grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          grid-auto-rows: 280px;
-          gap: 1.5rem;
+          grid-auto-rows: 260px;
+          gap: 1.25rem;
+        }
+        .sc__item {
+          position: relative;
+          border-radius: 20px;
+          overflow: hidden;
+          cursor: pointer;
+        }
+        .sc__item--large  { grid-column: span 2; grid-row: span 2; }
+        .sc__item--small  { grid-column: span 1; grid-row: span 1; }
+        .sc__item--wide   { grid-column: span 2; grid-row: span 1; }
+
+        .sc__img {
+          width: 100%; height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.6s ease;
+        }
+        .sc__item:hover .sc__img { transform: scale(1.06); }
+
+        .sc__overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 50%, transparent 100%);
+        }
+        .sc__caption {
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          padding: 1.5rem;
+          z-index: 2;
+          color: white;
+        }
+        .sc__cat {
+          font-size: 0.78rem;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          font-weight: 700;
+          opacity: 0.85;
+        }
+        .sc__title {
+          font-size: 1.35rem;
+          margin-top: 0.35rem;
+          color: white;
         }
 
-        .bento-item.large {
-          grid-column: span 2;
-          grid-row: span 2;
-        }
-
-        .bento-item.small {
-          grid-column: span 1;
-          grid-row: span 1;
-        }
-
-        .bento-item.wide {
-          grid-column: span 2;
-          grid-row: span 1;
-        }
-
-        .bento-item:hover .bento-img {
-          transform: scale(1.08);
-        }
-
+        /* Responsive */
         @media (max-width: 992px) {
-          .bento-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-          .bento-item.large, .bento-item.wide {
-            grid-column: span 2;
-          }
-          .bento-item.small {
-            grid-column: span 1;
-          }
+          .sc__grid { grid-template-columns: repeat(2, 1fr); }
+          .sc__item--large, .sc__item--wide { grid-column: span 2; }
         }
-        
         @media (max-width: 576px) {
-          .bento-grid {
+          .sc__grid {
             grid-template-columns: 1fr;
-            grid-auto-rows: 220px;
+            grid-auto-rows: 200px;
           }
-          .bento-item.large, .bento-item.wide, .bento-item.small {
+          .sc__item--large, .sc__item--wide, .sc__item--small {
             grid-column: span 1;
-            grid-row: span 1; /* override large making it 2 rows on mobile */
+            grid-row: span 1;
           }
         }
       `}</style>

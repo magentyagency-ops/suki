@@ -4,163 +4,156 @@ import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize();
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const logoHeight = isMobile ? (scrolled ? '50px' : '65px') : (scrolled ? '80px' : '120px');
+  const links = [
+    { label: 'Expertise', href: '#services' },
+    { label: 'Réalisations', href: '#showcase' },
+    { label: "L'Agence", href: '#about' },
+  ];
 
   return (
-    <motion.nav 
+    <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`navbar ${scrolled ? 'scrolled glass' : ''}`}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        zIndex: 50,
-        padding: scrolled ? '0.5rem 0' : (isMobile ? '1rem 0' : '1.5rem 0'),
-        transition: 'padding 0.3s ease, background 0.3s ease'
-      }}
+      transition={{ duration: 0.7 }}
+      className={`nav ${scrolled ? 'nav--scrolled glass' : ''}`}
     >
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <a href="#" style={{ display: 'flex', alignItems: 'center', position: 'relative', zIndex: 60 }}>
-          <img 
-            src="/assets/suk.png" 
-            alt="Suki Logo" 
-            style={{ 
-              height: logoHeight, 
-              width: 'auto',
-              transition: 'height 0.3s ease'
-            }} 
-          />
+      <div className="container nav__wrap">
+        <a href="#" className="nav__logo">
+          <img src="/assets/suk.png" alt="Suki" className={`nav__logo-img ${scrolled ? 'nav__logo-img--sm' : ''}`} />
         </a>
 
-        {/* Desktop Menu */}
-        <ul className="desktop-menu" style={{ display: 'none', gap: '2.5rem', alignItems: 'center' }}>
-          <li><a href="#services" className="nav-link">Expertise</a></li>
-          <li><a href="#showcase" className="nav-link">Réalisations</a></li>
-          <li><a href="#about" className="nav-link">L'Agence</a></li>
+        {/* Desktop links */}
+        <ul className="nav__links">
+          {links.map((l) => (
+            <li key={l.href}><a href={l.href} className="nav__link">{l.label}</a></li>
+          ))}
           <li>
-            <a href="#contact" className="btn btn-primary" style={{ padding: '0.6rem 1.6rem', fontSize: '0.95rem' }}>
-              Démarrer un projet
-            </a>
+            <a href="#contact" className="btn btn-primary nav__cta">Nous contacter</a>
           </li>
         </ul>
 
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="mobile-menu-btn"
-          style={{ 
-            background: isMobileMenuOpen ? 'transparent' : 'var(--color-primary)', 
-            border: 'none', 
-            color: isMobileMenuOpen ? 'var(--color-text)' : 'white', 
-            cursor: 'pointer', 
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '45px',
-            height: '45px',
-            borderRadius: '50%',
-            position: 'relative',
-            zIndex: 60,
-            transition: 'background 0.3s'
-          }}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        {/* Mobile toggle */}
+        <button
+          className="nav__toggle"
+          onClick={() => setOpen(!open)}
+          aria-label="Menu"
         >
-          {isMobileMenuOpen ? <X size={26} /> : <Menu size={24} />}
+          {open ? <X size={24} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Fullscreen Mobile Menu Overlay */}
+      {/* Fullscreen mobile overlay */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="mobile-menu-overlay"
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100vw',
-              height: '100vh',
-              background: 'rgba(253, 251, 247, 0.98)', /* Rice paper nearly solid */
-              padding: '6rem 2rem 2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '2rem',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
+        {open && (
+          <motion.div
+            className="nav__mobile"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
           >
-            <a href="#services" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Expertise</a>
-            <a href="#showcase" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Réalisations</a>
-            <a href="#about" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>L'Agence</a>
-            <a href="#contact" className="btn btn-primary" style={{ marginTop: '1rem', width: '100%', maxWidth: '250px' }} onClick={() => setIsMobileMenuOpen(false)}>Démarrer un projet</a>
+            {links.map((l) => (
+              <a key={l.href} href={l.href} className="nav__mobile-link" onClick={() => setOpen(false)}>
+                {l.label}
+              </a>
+            ))}
+            <a href="#contact" className="btn btn-primary" style={{ width: '100%', maxWidth: 240, marginTop: '1rem' }} onClick={() => setOpen(false)}>
+              Nous contacter
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
 
       <style>{`
-        @media (min-width: 768px) {
-          .desktop-menu {
-            display: flex !important;
-          }
-          .mobile-menu-btn {
-            display: none !important;
-          }
-          .mobile-menu-overlay {
-            display: none !important;
-          }
+        .nav {
+          position: fixed;
+          top: 0; left: 0; width: 100%;
+          z-index: 100;
+          padding: 1.2rem 0;
+          transition: padding 0.3s, background 0.3s;
         }
-        .nav-link {
-          font-weight: 500;
+        .nav--scrolled { padding: 0.5rem 0; }
+        .nav__wrap {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .nav__logo { position: relative; z-index: 110; }
+        .nav__logo-img {
+          height: 70px;
+          width: auto;
+          transition: height 0.3s;
+        }
+        .nav__logo-img--sm { height: 50px; }
+
+        /* Desktop */
+        .nav__links {
+          display: flex;
+          align-items: center;
+          gap: 2.2rem;
+        }
+        .nav__link {
           font-size: 0.95rem;
+          font-weight: 500;
           color: var(--color-text);
           position: relative;
         }
-        .nav-link::after {
+        .nav__link::after {
           content: '';
           position: absolute;
-          width: 0;
-          height: 2px;
-          bottom: -4px;
-          left: 0;
-          background-color: var(--color-primary);
-          transition: width 0.3s ease;
+          left: 0; bottom: -4px;
+          width: 0; height: 2px;
+          background: var(--color-primary);
+          transition: width 0.3s;
         }
-        .nav-link:hover::after {
-          width: 100%;
+        .nav__link:hover::after { width: 100%; }
+        .nav__cta { padding: 0.55rem 1.5rem; font-size: 0.9rem; }
+        .nav__toggle { display: none; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+          .nav__logo-img { height: 50px; }
+          .nav__logo-img--sm { height: 40px; }
+          .nav__links { display: none; }
+          .nav__toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--color-primary);
+            color: white;
+            cursor: pointer;
+            position: relative;
+            z-index: 110;
+          }
         }
-        .mobile-nav-link {
-          font-size: 2rem;
+        .nav__mobile {
+          position: fixed;
+          inset: 0;
+          z-index: 105;
+          background: rgba(253,251,247,0.97);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 1.8rem;
+          padding: 2rem;
+        }
+        .nav__mobile-link {
           font-family: var(--font-heading);
+          font-size: 1.8rem;
           font-weight: 600;
           color: var(--color-text);
-          text-decoration: none;
         }
       `}</style>
     </motion.nav>

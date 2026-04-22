@@ -4,111 +4,128 @@ import { Smartphone, TrendingUp, Scissors, Camera } from 'lucide-react';
 const services = [
   {
     title: "Vidéos Verticales",
-    description: "Reels, Shorts et TikToks rythmés et esthétiques qui mettent en valeur vos plats et l'ambiance.",
-    icon: <Smartphone size={32} />
+    desc: "Reels, Shorts et TikToks rythmés et esthétiques qui mettent en valeur vos plats et l'ambiance.",
+    icon: <Smartphone size={28} />
   },
   {
     title: "Croissance Organique",
-    description: "Des stratégies conçues pour les algorithmes actuels. Générez de l'attention sans dépenser en publicité.",
-    icon: <TrendingUp size={32} />
+    desc: "Des stratégies conçues pour les algorithmes actuels. Générez de l'attention sans dépenser en publicité.",
+    icon: <TrendingUp size={28} />
   },
   {
     title: "Direction Artistique",
-    description: "Captation premium. Nous transcendons l'image de la restauration asiatique avec des plans façon cinéma.",
-    icon: <Camera size={32} />
+    desc: "Captation premium. Nous transcendons l'image de la restauration asiatique avec des plans façon cinéma.",
+    icon: <Camera size={28} />
   },
   {
     title: "Montage Dynamique",
-    description: "Un sound design immersif et des transitions millimétrées pour capter l'attention dès la première seconde.",
-    icon: <Scissors size={32} />
+    desc: "Un sound design immersif et des transitions millimétrées pour capter l'attention dès la première seconde.",
+    icon: <Scissors size={28} />
   }
 ];
 
 export default function Services() {
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { staggerChildren: 0.15 }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
   };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  const item = {
+    hidden: { opacity: 0, y: 25 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55 } }
   };
 
   return (
     <section id="services" className="section-padding container">
-      <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-        <motion.span 
-          initial={{ opacity: 0, y: 20 }}
+      <div className="sv__header">
+        <motion.span
+          className="sv__tag"
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          style={{ color: 'var(--color-primary)', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.9rem' }}
+          viewport={{ once: true, margin: "-80px" }}
         >
           Notre Expertise
         </motion.span>
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
+        <motion.h2
+          className="sv__heading"
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ delay: 0.1 }}
-          style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', marginTop: '1rem' }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ delay: 0.08 }}
         >
-          L'Arme de Croissance <br/>
+          L'Arme de Croissance <br />
           <span className="text-gold-gradient" style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic' }}>Massive</span>
         </motion.h2>
       </div>
 
-      <motion.div 
-        variants={containerVariants}
+      <motion.div
+        className="sv__grid"
+        variants={container}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '2rem'
-        }}
+        viewport={{ once: true, margin: "-80px" }}
       >
-        {services.map((service, index) => (
-          <motion.div
-            key={index}
-            variants={itemVariants}
-            className="glass service-card"
-            style={{
-              padding: '3rem 2rem',
-              borderRadius: '20px',
-              transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease',
-              background: 'white' // Brighter cards inside the rice paper background
-            }}
-          >
-            <div style={{
-              width: '60px', height: '60px', 
-              borderRadius: '15px', 
-              background: 'linear-gradient(135deg, rgba(200, 16, 46, 0.1) 0%, rgba(200, 16, 46, 0.02) 100%)',
-              color: 'var(--color-primary)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              marginBottom: '2rem'
-            }}>
-              {service.icon}
-            </div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-text)' }}>{service.title}</h3>
-            <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.6 }}>{service.description}</p>
+        {services.map((s, i) => (
+          <motion.div key={i} variants={item} className="sv__card">
+            <div className="sv__icon">{s.icon}</div>
+            <h3 className="sv__title">{s.title}</h3>
+            <p className="sv__desc">{s.desc}</p>
           </motion.div>
         ))}
       </motion.div>
 
       <style>{`
-        .service-card:hover {
-          transform: translateY(-12px);
-          box-shadow: 0 20px 40px rgba(200, 16, 46, 0.08) !important;
+        .sv__header {
+          text-align: center;
+          margin-bottom: 4.5rem;
         }
+        .sv__tag {
+          color: var(--color-primary);
+          font-weight: 700;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          font-size: 0.85rem;
+        }
+        .sv__heading {
+          font-size: clamp(2rem, 4vw, 3.2rem);
+          margin-top: 0.8rem;
+        }
+        .sv__grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 1.5rem;
+        }
+        .sv__card {
+          background: white;
+          border: 1px solid rgba(0,0,0,0.04);
+          border-radius: 20px;
+          padding: 2.5rem 2rem;
+          transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+        }
+        .sv__card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 18px 40px rgba(200,16,46,0.07);
+        }
+        .sv__icon {
+          width: 52px; height: 52px;
+          border-radius: 14px;
+          display: flex; align-items: center; justify-content: center;
+          color: var(--color-primary);
+          background: linear-gradient(135deg, rgba(200,16,46,0.1), rgba(200,16,46,0.02));
+          margin-bottom: 1.5rem;
+        }
+        .sv__title {
+          font-size: 1.35rem;
+          margin-bottom: 0.75rem;
+          color: var(--color-text);
+        }
+        .sv__desc {
+          color: var(--color-text-muted);
+          line-height: 1.6;
+          font-size: 0.95rem;
+        }
+
         @media (max-width: 576px) {
-          .service-card {
-            padding: 2rem 1.5rem !important;
-          }
+          .sv__card { padding: 2rem 1.5rem; }
         }
       `}</style>
     </section>
